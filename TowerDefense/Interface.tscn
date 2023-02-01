@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="Interface" type="Node"]
+
+[node name="Score" type="Label" parent="."]
+margin_left = 193.0
+margin_top = 14.0
+margin_right = 376.0
+margin_bottom = 73.0
+text = "Score: 10"
