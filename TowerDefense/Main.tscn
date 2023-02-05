@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://TowerDefnse.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/Icon_Next.png" type="Texture" id=2]
 [ext_resource path="res://assets/Icon_ArrowUp_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI books & more.png" type="Texture" id=4]
 [ext_resource path="res://assets/buttons_4x.png" type="Texture" id=5]
+[ext_resource path="res://EnemyPath.tscn" type="PackedScene" id=6]
+[ext_resource path="res://HUD.gd" type="Script" id=7]
+[ext_resource path="res://PathSpawner.gd" type="Script" id=8]
+[ext_resource path="res://assets/m6x11.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://assets/Icon_Heart.png" type="Texture" id=10]
 
 [sub_resource type="TileSet" id=1]
 0/name = "UI books & more.png 0"
@@ -64,6 +69,16 @@
 3/shapes = [  ]
 3/z_index = 0
 
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1040, 384, 0, 0, 0, 0, 864, 384, 0, 0, 0, 0, 864, 248, 0, 0, 0, 0, 680, 248, 0, 0, 0, 0, 680, 336, 0, 0, 0, 0, 456, 336, 0, 0, 0, 0, 456, 384, 0, 0, 0, 0, 320, 384, 0, 0, 0, 0, 320, 296, 0, 0, 0, 0, 144, 296 )
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 47
+outline_color = Color( 1, 0, 0.376471, 1 )
+font_data = ExtResource( 9 )
+
 [node name="Main" type="Node"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -98,7 +113,16 @@ cell_size = Vector2( 64, 40 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 0, 65536, 0, 0, 65548, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 2, 0 )
 
-[node name="Play" type="Button" parent="."]
+[node name="PathSpawner" type="Path2D" parent="."]
+curve = SubResource( 2 )
+script = ExtResource( 8 )
+spawnTime = 4
+follower = ExtResource( 6 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 7 )
+
+[node name="Play" type="Button" parent="HUD"]
 margin_left = 813.0
 margin_top = 16.0
 margin_right = 1005.0
@@ -108,7 +132,7 @@ icon = ExtResource( 2 )
 flat = true
 icon_align = 1
 
-[node name="Speed" type="Button" parent="."]
+[node name="Speed" type="Button" parent="HUD"]
 margin_left = 908.0
 margin_top = 14.0
 margin_right = 1148.0
@@ -116,3 +140,24 @@ margin_bottom = 219.0
 rect_scale = Vector2( 0.4, 0.4 )
 icon = ExtResource( 3 )
 flat = true
+
+[node name="Health" type="Label" parent="HUD"]
+margin_left = 232.0
+margin_top = 16.0
+margin_right = 304.0
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0.929412, 0.0509804, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "100"
+
+[node name="Sprite" type="Sprite" parent="HUD"]
+position = Vector2( 200, 32 )
+scale = Vector2( 0.213964, 0.173077 )
+texture = ExtResource( 10 )
+
+[node name="Tower1" type="Button" parent="HUD"]
+margin_right = 12.0
+margin_bottom = 20.0
+
+[connection signal="pressed" from="HUD/Play" to="HUD" method="_on_Play_pressed"]
+[connection signal="pressed" from="HUD/Speed" to="HUD" method="_on_Speed_pressed"]
