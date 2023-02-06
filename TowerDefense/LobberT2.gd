@@ -1,0 +1,2 @@
+extends "res://Turrets.gd"
+

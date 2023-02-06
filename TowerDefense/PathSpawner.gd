@@ -1,6 +1,6 @@
 extends Path2D
 
-var timer = 0
+var timer = 10
 export var spawnTime = 15
 export (PackedScene) var follower
 onready var global = get_node("/root/Globals")

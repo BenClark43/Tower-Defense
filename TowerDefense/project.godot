@@ -18,6 +18,11 @@ config/icon="res://icon.png"
 
 Globals="*res://Globals.gd"
 
+[global]
+
+layrt=false
+layer=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
